@@ -1,0 +1,19 @@
+pmdisk:
+  image: ubuntu
+  entrypoint: true
+  volumes:
+  - ./pm:/var/pocketmine:rw
+pmserve:
+  build: ./docker
+  volumes_from:
+  - pmdisk
+  dns:
+  - 8.8.8.8
+  - 8.8.4.4
+  ports:
+  - "0.0.0.0:19132:19132"
+  entrypoint: /opt/pocketmine/bin/php5/bin/php
+  command: /opt/pocketmine/PocketMine-MP.phar --no-wizard --enable-rcon=on --max-players=10 --difficulty=1 --gamemode=1 --allow-flight=on --description=myworld --level-name=world0 --level-seed=2014 --level-type=DEFAULT --motd=pmserv --server-name=pmserv --memory-limit=512M
+
+#for vim modeline: (do not edit)
+# vim:ts=2:sw=2:tw=79:fdm=marker:fmr=FOLDUP,UNFOLD:cms=#%s:tags=.tags;:syn=yaml:ft=yaml:et:ai:si:cin:nu:fo=croqt:cino=p0t0c5(0:ff=unix
